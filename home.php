@@ -34,6 +34,16 @@ $count_all_result = $conn->query("SELECT COUNT(*) as count_all FROM patient_reco
 $count_all_row = $count_all_result->fetch_assoc();
 $count_all = $count_all_row['count_all'];
 
+//std
+$std_age_result=$conn->query("SELECT STD(age) as std_age FROM patient_records");
+$std_age_row=$std_age_result->fetch_assoc();
+$std_age=round($std_age_row['std_age'],2);
+
+//range
+$range_age_result=$conn->query("SELECT MAX(age) - MIN(age) as range_age FROM patient_records");
+$range_age_row=$range_age_result->fetch_assoc();
+$range_age=round($range_age_row['range_age'],2);
+
 $conn->close();
 ?>
 
@@ -75,6 +85,22 @@ $conn->close();
                 <div class="card-header">Total Patients</div>
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $count_all; ?></h5>
+                </div>
+            </div>
+        </div>
+           <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">STD dev</div>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $std_age; ?></h5>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Age Differences</div>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $range_age; ?></h5>
                 </div>
             </div>
         </div>
